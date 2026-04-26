@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yakamoz Glass Works - Premium Catalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #001f3f;
+            --bg-darker: #0a0a1a;
+            --gold-primary: #c9a84c;
+            --gold-light: #d4af37;
+            --gold-dark: #b8941f;
+            --text-light: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body.rtl { direction: rtl; }
+
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+            padding: 1rem 2rem;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 1rem; }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.2); } }
+
+        .logo-svg {
+            width: 50px; height: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .logo-svg:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px var(--gold-primary));
+        }
+
+        .admin-dropdown {
+            position: absolute;
+            top: 100%; right: 0;
+            background: var(--bg-darker);
+            border: 1px solid var(--gold-primary);
+            border-radius: 8px;
+            padding: 1rem;
+            display: none;
+            min-width: 250px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .admin-dropdown.active { display: block; }
+
+        .admin-dropdown h3 {
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .admin-controls { display: flex; flex-direction: column; gap: 0.5rem; }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--gold-primary);
+            background: transparent;
+            color: var(--gold-primary);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+
+        .btn:hover { background: var(--gold-primary); color: var(--bg-darker); }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: var(--bg-darker);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+        }
+
+        .language-switcher { display: flex; gap: 0.5rem; }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+        }
+
+        .hero {
+            padding: 150px 2rem 100px;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(201, 168, 76, 0.1) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .about {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .about-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            transition: var(--transition);
+        }
+
+        .about-card:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-5px);
+        }
+
+        .about-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .about-card p { color: var(--text-muted); line-height: 1.8; }
+
+        .categories {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .category-btn {
+            padding: 1rem 2rem;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            background: var(--card-bg);
+            color: var(--text-light);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 8px;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            border-color: var(--gold-primary);
+            background: rgba(201, 168, 76, 0.1);
+            color: var(--gold-primary);
+        }
+
+        .products {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .product-card:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(201, 168, 76, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), rgba(10, 10, 26, 0.5));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--gold-primary);
+        }
+
+        .product-info { padding: 1.5rem; }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-category { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
+
+        .product-description { color: var(--text-light); line-height: 1.6; margin-bottom: 1rem; }
+
+        .product-actions { display: flex; gap: 0.5rem; }
+
+        .product-actions .btn { flex: 1; padding: 0.5rem; font-size: 0.9rem; }
+
+        .admin-badge {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: var(--gold-primary);
+            color: var(--bg-darker);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox-content {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: var(--bg-darker);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--gold-primary);
+        }
+
+        .lightbox-image {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), rgba(10, 10, 26, 0.5));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: var(--gold-primary);
+        }
+
+        .lightbox-info {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem; right: 2rem;
+            background: transparent;
+            border: none;
+            color: var(--gold-primary);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover { transform: rotate(90deg); }
+
+        .modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: var(--bg-darker);
+            border: 1px solid var(--gold-primary);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold-primary);
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+
+        .form-group label {
+            display: block;
+            color: var(--gold-primary);
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            border-radius: 4px;
+            color: var(--text-light);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+        }
+
+        .file-drop {
+            border: 2px dashed rgba(201, 168, 76, 0.5);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-drop:hover {
+            border-color: var(--gold-primary);
+            background: rgba(201, 168, 76, 0.05);
+        }
+
+        .file-drop.dragover {
+            border-color: var(--gold-light);
+            background: rgba(201, 168, 76, 0.1);
+        }
+
+        .queue-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .queue-section h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold-primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .queue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .queue-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .queue-item.pending { border-left: 4px solid #ffa500; }
+        .queue-item.approved { border-left: 4px solid #00ff00; }
+        .queue-item.rejected { border-left: 4px solid #ff0000; }
+
+        .footer {
+            background: var(--bg-darker);
+            border-top: 1px solid rgba(201, 168, 76, 0.2);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer p { color: var(--text-muted); margin-bottom: 1rem; }
+
+        .footer-highlight {
+            color: var(--gold-primary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .lightbox-content { grid-template-columns: 1fr; }
+            .lightbox-image { height: 300px; }
+            .header { padding: 1rem; }
+            .logo { font-size: 1.5rem; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in { animation: fadeIn 0.6s ease forwards; }
+
+        .ai-indicator {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(201, 168, 76, 0.2);
+            border: 1px solid var(--gold-primary);
+            border-radius: 4px;
+            color: var(--gold-primary);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <svg class="logo-svg" id="adminLogoBtn" viewBox="0 0 100 100" title="Admin Login">
+                    <defs>
+                        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#d4af37"/>
+                            <stop offset="100%" style="stop-color:#c9a84c"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
+                    <path d="M50 20 L50 50 L70 65" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="50" cy="50" r="5" fill="url(#goldGrad)"/>
+                </svg>
+                <div class="logo">YAKAMOZ</div>
+            </div>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="EN">EN</button>
+                <button class="lang-btn" data-lang="TR">TR</button>
+                <button class="lang-btn" data-lang="RU">RU</button>
+                <button class="lang-btn" data-lang="AR">AR</button>
+            </div>
+            <div class="admin-dropdown" id="adminDropdown">
+                <h3 data-i18n="adminPanel">Admin Panel</h3>
+                <div class="admin-controls">
+                    <button class="btn btn-primary" onclick="openUploadModal()" data-i18n="uploadProduct">Upload Product</button>
+                    <button class="btn" onclick="showQueue()" data-i18n="reviewQueue">Review Queue</button>
+                    <button class="btn" onclick="toggleAdminMode()" id="adminModeBtn" data-i18n="enableAdmin">Enable Admin Mode</button>
+                    <button class="btn" onclick="clearData()" data-i18n="clearData">Clear All Data</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1 data-i18n="heroTitle">Yakamoz Glass Works</h1>
+        <p data-i18n="heroSubtitle">Crafting excellence in glass since 1991. Beykoz heritage meets contemporary luxury in every piece.</p>
+    </section>
+
+    <section class="about">
+        <div class="about-card fade-in">
+            <h3 data-i18n="heritageTitle">Beykoz Heritage</h3>
+            <p data-i18n="heritageText">Rooted in the historic glass-making district of Beykoz, Istanbul, we continue a centuries-old tradition of craftsmanship and innovation.</p>
+        </div>
+        <div class="about-card fade-in">
+            <h3 data-i18n="bespokeTitle">Bespoke Glass</h3>
+            <p data-i18n="bespokeText">Every piece is carefully crafted to meet the exacting standards of premium hospitality and discerning collectors worldwide.</p>
+        </div>
+        <div class="about-card fade-in">
+            <h3 data-i18n="premiumTitle">Premium Hospitality</h3>
+            <p data-i18n="premiumText">Trusted by luxury hotels, restaurants, and residences across the globe for our unmatched quality and elegance.</p>
+        </div>
+    </section>
+
+    <div class="categories">
+        <button class="category-btn active" data-category="all" data-i18n="catAll">All</button>
+        <button class="category-btn" data-category="tableware" data-i18n="catTableware">Tableware</button>
+        <button class="category-btn" data-category="bar" data-i18n="catBar">Bar</button>
+        <button class="category-btn" data-category="lighting" data-i18n="catLighting">Lighting</button>
+        <button class="category-btn" data-category="installation" data-i18n="catInstallation">Installation</button>
+        <button class="category-btn" data-category="decor" data-i18n="catDecor">Decor</button>
+    </div>
+
+    <div class="products" id="productsGrid"></div>
+
+    <div class="queue-section" id="queueSection" style="display: none;">
+        <h2 data-i18n="reviewQueue">Review Queue</h2>
+        <div class="queue-grid" id="queueGrid"></div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">×</button>
+        <div class="lightbox-content">
+            <div class="lightbox-image" id="lightboxImage"></div>
+            <div class="lightbox-info">
+                <h2 class="product-name" id="lightboxName"></h2>
+                <p class="product-category" id="lightboxCategory"></p>
+                <p class="product-description" id="lightboxDescription"></p>
+                <div class="product-actions" id="lightboxActions"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-i18n="uploadProduct">Upload Product</h2>
+                <button class="btn" onclick="closeUploadModal()">×</button>
+            </div>
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label data-i18n="productName">Product Name</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="productCategory">Category</label>
+                    <select id="productCategory">
+                        <option value="tableware" data-i18n="catTableware">Tableware</option>
+                        <option value="bar" data-i18n="catBar">Bar</option>
+                        <option value="lighting" data-i18n="catLighting">Lighting</option>
+                        <option value="installation" data-i18n="catInstallation">Installation</option>
+                        <option value="decor" data-i18n="catDecor">Decor</option>
+                        <option value="auto" data-i18n="autoClassify">Auto-classify with AI</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="productDescription">Description</label>
+                    <textarea id="productDescription" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="productImage">Product Image</label>
+                    <div class="file-drop" id="fileDrop">
+                        <p data-i18n="dropImage">Drop image here or click to upload</p>
+                        <input type="file" id="productImage" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" data-i18n="submitForReview">Submit for Review</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p><span class="footer-highlight">Yakamoz Glass Works</span> — Istanbul, Turkey</p>
+        <p data-i18n="footerText">Established 1991 | Beykoz District</p>
+        <p data-i18n="footerRights">© 2024 All rights reserved</p>
+    </footer>
+
+    <script>
+        const translations = {
+            EN: {
+                adminPanel: "Admin Panel", uploadProduct: "Upload Product", reviewQueue: "Review Queue",
+                enableAdmin: "Enable Admin Mode", disableAdmin: "Disable Admin Mode", clearData: "Clear All Data",
+                heroTitle: "Yakamoz Glass Works",
+                heroSubtitle: "Crafting excellence in glass since 1991. Beykoz heritage meets contemporary luxury in every piece.",
+                heritageTitle: "Beykoz Heritage",
+                heritageText: "Rooted in the historic glass-making district of Beykoz, Istanbul, we continue a centuries-old tradition of craftsmanship and innovation.",
+                bespokeTitle: "Bespoke Glass",
+                bespokeText: "Every piece is carefully crafted to meet the exacting standards of premium hospitality and discerning collectors worldwide.",
+                premiumTitle: "Premium Hospitality",
+                premiumText: "Trusted by luxury hotels, restaurants, and residences across the globe for our unmatched quality and elegance.",
+                catAll: "All", catTableware: "Tableware", catBar: "Bar", catLighting: "Lighting", catInstallation: "Installation", catDecor: "Decor",
+                productName: "Product Name", productCategory: "Category", productDescription: "Description", productImage: "Product Image",
+                dropImage: "Drop image here or click to upload", submitForReview: "Submit for Review", autoClassify: "Auto-classify with AI",
+                footerText: "Established 1991 | Beykoz District", footerRights: "© 2024 All rights reserved",
+                edit: "Edit", delete: "Delete", approve: "Approve", reject: "Reject",
+                pending: "Pending", approved: "Approved", rejected: "Rejected", aiClassified: "AI Classified"
+            },
+            TR: {
+                adminPanel: "Yönetim Paneli", uploadProduct: "Ürün Yükle", reviewQueue: "İnceleme Kuyruğu",
+                enableAdmin: "Yönetici Modunu Aç", disableAdmin: "Yönetici Modunu Kapat", clearData: "Tüm Verileri Sil",
+                heroTitle: "Yakamoz Cam Sanayi",
+                heroSubtitle: "1991'den beri camda mükemmellik. Her parçada Beykoz mirası çağdaş lüksle buluşuyor.",
+                heritageTitle: "Beykoz Mirası",
+                heritageText: "İstanbul'un tarihi cam yapım bölgesi Beykoz'da köklü, yüzyıllık zanaat ve yenilik geleneğini sürdürüyoruz.",
+                bespokeTitle: "Özel Üretim",
+                bespokeText: "Her parça, dünya çapında premium misafirperverlik ve seçkin koleksiyoncuların titiz standartlarını karşılamak için özenle hazırlanır.",
+                premiumTitle: "Premium Misafirperverlik",
+                premiumText: "Eşsiz kalitemiz ve zarafetimiz için dünyanın dört bir yanındaki lüks oteller, restoranlar ve konutlar tarafından güveniliyor.",
+                catAll: "Tümü", catTableware: "Sofra Takımı", catBar: "Bar", catLighting: "Aydınlatma", catInstallation: "Enstalasyon", catDecor: "Dekor",
+                productName: "Ürün Adı", productCategory: "Kategori", productDescription: "Açıklama", productImage: "Ürün Görseli",
+                dropImage: "Görseli buraya sürükleyin veya yüklemek için tıklayın", submitForReview: "İncelemeye Gönder", autoClassify: "AI ile Otomatik Sınıflandır",
+                footerText: "1991'den beri | Beykoz Bölgesi", footerRights: "© 2024 Tüm hakları saklıdır",
+                edit: "Düzenle", delete: "Sil", approve: "Onayla", reject: "Reddet",
+                pending: "Beklemede", approved: "Onaylandı", rejected: "Reddedildi", aiClassified: "AI Sınıflandırıldı"
+            },
+            RU: {
+                adminPanel: "Панель администратора", uploadProduct: "Загрузить товар", reviewQueue: "Очередь на проверку",
+                enableAdmin: "Включить режим администратора", disableAdmin: "Отключить режим администратора", clearData: "Очистить все данные",
+                heroTitle: "Yakamoz Glass Works",
+                heroSubtitle: "Создаем совершенство в стекле с 1991 года. Наследие Бейкоза встречается с современным люксом в каждом изделии.",
+                heritageTitle: "Наследие Бейкоза",
+                heritageText: "Укорененные в историческом районе производства стекла Бейкоз, Стамбул, мы продолжаем вековую традицию мастерства и инноваций.",
+                bespokeTitle: "Индивидуальное производство",
+                bespokeText: "Каждое изделие тщательно создано для соответствия строгим стандартам премиального гостеприимства и требовательных коллекционеров по всему миру.",
+                premiumTitle: "Премиальное гостеприимство",
+                premiumText: "Нам доверяют роскошные отели, рестораны и резиденции по всему миру за наше непревзойденное качество и элегантность.",
+                catAll: "Все", catTableware: "Посуда", catBar: "Бар", catLighting: "Освещение", catInstallation: "Инсталляция", catDecor: "Декор",
+                productName: "Название товара", productCategory: "Категория", productDescription: "Описание", productImage: "Изображение товара",
+                dropImage: "Перетащите изображение сюда или нажмите для загрузки", submitForReview: "Отправить на проверку", autoClassify: "Автоклассификация с ИИ",
+                footerText: "Основано в 1991 | Район Бейкоз", footerRights: "© 2024 Все права защищены",
+                edit: "Редактировать", delete: "Удалить", approve: "Одобрить", reject: "Отклонить",
+                pending: "В ожидании", approved: "Одобрено", rejected: "Отклонено", aiClassified: "Классифицировано ИИ"
+            },
+            AR: {
+                adminPanel: "لوحة الإدارة", uploadProduct: "تحميل المنتج", reviewQueue: "قائمة المراجعة",
+                enableAdmin: "تمكين وضع المسؤول", disableAdmin: "تعطيل وضع المسؤول", clearData: "مسح جميع البيانات",
+                heroTitle: "ياكاموز للأعمال الزجاجية",
+                heroSubtitle: "صناعة التميز في الزجاج منذ 1991. تراث بيكوز يلتقي بالفخامة المعاصرة في كل قطعة.",
+                heritageTitle: "تراث بيكوز",
+                heritageText: "متجذرون في منطقة صناعة الزجاج التاريخية في بيكوز، إسطنبول، نستمر في تقليد الحرفية والابتكار الذي يمتد لقرون.",
+                bespokeTitle: "زجاج مخصص",
+                bespokeText: "كل قطعة مصنوعة بعناية لتلبية المعايير الدقيقة للضيافة الفاخرة وجامعي التماثيل في جميع أنحاء العالم.",
+                premiumTitle: "ضيافة فاخرة",
+                premiumText: "موثوق به من قبل الفنادق والمطاعم والمساكن الفاخرة عبر العالم لجودتنا وأناقتنا التي لا مثيل لها.",
+                catAll: "الكل", catTableware: "أواني المائدة", catBar: "بار", catLighting: "إضاءة", catInstallation: "تركيب", catDecor: "ديكور",
+                productName: "اسم المنتج", productCategory: "الفئة", productDescription: "الوصف", productImage: "صورة المنتج",
+                dropImage: "أسقط الصورة هنا أو انقر للتحميل", submitForReview: "إرسال للمراجعة", autoClassify: "تصنيف تلقائي بالذكاء الاصطناعي",
+                footerText: "تأسست 1991 | منطقة بيكوز", footerRights: "© 2024 جميع الحقوق محفوظة",
+                edit: "تعديل", delete: "حذف", approve: "موافقة", reject: "رفض",
+                pending: "قيد الانتظار", approved: "موافق عليه", rejected: "مرفوض", aiClassified: "مصنف بالذكاء الاصطناعي"
+            }
+        };
+
+        let currentLang = 'EN';
+        let isAdminMode = false;
+        let products = [];
+        let queue = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFromStorage();
+            renderProducts();
+            setupEventListeners();
+            updateLanguage(currentLang);
+        });
+
+        function loadFromStorage() {
+            const storedProducts = localStorage.getItem('yakamoz_products');
+            const storedQueue = localStorage.getItem('yakamoz_queue');
+            const storedLang = localStorage.getItem('yakamoz_lang');
+            
+            if (storedProducts) {
+                products = JSON.parse(storedProducts);
+            } else {
+                products = [
+                    { id: 1, name: 'Crystal Wine Glass Set', category: 'tableware', description: 'Hand-blown crystal wine glasses, perfect for fine dining experiences.', image: null, status: 'approved' },
+                    { id: 2, name: 'Artisan Decanter', category: 'bar', description: 'Elegant handcrafted decanter with gold accents.', image: null, status: 'approved' },
+                    { id: 3, name: 'Pendant Light Fixture', category: 'lighting', description: 'Contemporary glass pendant light for luxury interiors.', image: null, status: 'approved' },
+                    { id: 4, name: 'Custom Wall Installation', category: 'installation', description: 'Bespoke glass wall art for premium hospitality spaces.', image: null, status: 'approved' },
+                    { id: 5, name: 'Decorative Bowl', category: 'decor', description: 'Artistic glass bowl with unique patterns.', image: null, status: 'approved' }
+                ];
+                saveToStorage();
+            }
+            
+            if (storedQueue) queue = JSON.parse(storedQueue);
+            if (storedLang) currentLang = storedLang;
+        }
+
+        function saveToStorage() {
+            localStorage.setItem('yakamoz_products', JSON.stringify(products));
+            localStorage.setItem('yakamoz_queue', JSON.stringify(queue));
+            localStorage.setItem('yakamoz_lang', currentLang);
+        }
+
+        function clearData() {
+            if (confirm('Are you sure you want to clear all data?')) {
+                localStorage.removeItem('yakamoz_products');
+                localStorage.removeItem('yakamoz_queue');
+                location.reload();
+            }
+        }
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            document.body.classList.toggle('rtl', lang === 'AR');
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (translations[lang][key]) el.textContent = translations[lang][key];
+            });
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            renderProducts();
+            saveToStorage();
+        }
+
+        function setupEventListeners() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => updateLanguage(btn.dataset.lang));
+            });
+
+            document.getElementById('adminLogoBtn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('adminDropdown').classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('#adminDropdown') && !e.target.closest('#adminLogoBtn')) {
+                    document.getElementById('adminDropdown').classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderProducts(btn.dataset.category);
+                });
+            });
+
+            const fileDrop = document.getElementById('fileDrop');
+            const fileInput = document.getElementById('productImage');
+
+            fileDrop.addEventListener('click', () => fileInput.click());
+            
+            fileDrop.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileDrop.classList.add('dragover');
+            });
+
+            fileDrop.addEventListener('dragleave', () => fileDrop.classList.remove('dragover'));
+
+            fileDrop.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileDrop.classList.remove('dragover');
+                if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) handleFile(e.target.files[0]);
+            });
+
+            document.getElementById('uploadForm').addEventListener('submit', handleUpload);
+        }
+
+        let currentImageBase64 = null;
+
+        function handleFile(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                currentImageBase64 = e.target.result;
+                document.querySelector('.file-drop p').textContent = file.name;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function aiClassify(description) {
+            const keywords = {
+                tableware: ['plate', 'bowl', 'glass', 'cup', 'dish', 'serve', 'dining', 'table'],
+                bar: ['bottle', 'decanter', 'cocktail', 'drink', 'bar', 'wine', 'spirit'],
+                lighting: ['light', 'lamp', 'pendant', 'chandelier', 'fixture', 'illuminate'],
+                installation: ['wall', 'art', 'install', 'custom', 'bespoke', 'large'],
+                decor: ['decorative', 'ornament', 'vase', 'sculpture', 'artistic']
+            };
+
+            const descLower = description.toLowerCase();
+            let bestMatch = 'decor';
+            let maxScore = 0;
+
+            for (const [category, words] of Object.entries(keywords)) {
+                const score = words.filter(word => descLower.includes(word)).length;
+                if (score > maxScore) {
+                    maxScore = score;
+                    bestMatch = category;
+                }
+            }
+
+            return bestMatch;
+        }
+
+        function handleUpload(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('productName').value;
+            const category = document.getElementById('productCategory').value;
+            const description = document.getElementById('productDescription').value;
+            
+            let finalCategory = category;
+            let aiClassified = false;
+
+            if (category === 'auto') {
+                finalCategory = aiClassify(description);
+                aiClassified = true;
+            }
+
+            const newItem = {
+                id: Date.now(),
+                name,
+                category: finalCategory,
+                description,
+                image: currentImageBase64,
+                status: 'pending',
+                aiClassified
+            };
+
+            queue.push(newItem);
+            saveToStorage();
+            
+            closeUploadModal();
+            showQueue();
+            
+            document.getElementById('uploadForm').reset();
+            currentImageBase64 = null;
+            document.querySelector('.file-drop p').textContent = translations[currentLang].dropImage;
+        }
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            const filtered = filter === 'all' 
+                ? products.filter(p => p.status === 'approved')
+                : products.filter(p => p.category === filter && p.status === 'approved');
+
+            grid.innerHTML = filtered.map(product => `
+                <div class="product-card fade-in" onclick="openLightbox(${product.id})">
+                    ${isAdminMode ? `<span class="admin-badge">${translations[currentLang].approved}</span>` : ''}
+                    <div class="product-image">
+                        ${product.image ? `<img src="${product.image}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;">` : '🍷'}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-category">${translations[currentLang]['cat' + product.category.charAt(0).toUpperCase() + product.category.slice(1)]}</p>
+                        <p class="product-description">${product.description}</p>
+                        ${isAdminMode ? `
+                            <div class="product-actions" onclick="event.stopPropagation()">
+                                <button class="btn" onclick="editProduct(${product.id})">${translations[currentLang].edit}</button>
+                                <button class="btn" onclick="deleteProduct(${product.id})">${translations[currentLang].delete}</button>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderQueue() {
+            const grid = document.getElementById('queueGrid');
+            grid.innerHTML = queue.map(item => `
+                <div class="queue-item ${item.status}">
+                    <h3>${item.name}</h3>
+                    <p>${item.description}</p>
+                    <p><strong>Category:</strong> ${item.category} ${item.aiClassified ? `<span class="ai-indicator">${translations[currentLang].aiClassified}</span>` : ''}</p>
+                    <p><strong>Status:</strong> ${translations[currentLang][item.status]}</p>
+                    ${item.status === 'pending' ? `
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="approveItem(${item.id})">${translations[currentLang].approve}</button>
+                            <button class="btn" onclick="rejectItem(${item.id})">${translations[currentLang].reject}</button>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function openLightbox(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            document.getElementById('lightboxName').textContent = product.name;
+            document.getElementById('lightboxCategory').textContent = translations[currentLang]['cat' + product.category.charAt(0).toUpperCase() + product.category.slice(1)];
+            document.getElementById('lightboxDescription').textContent = product.description;
+            document.getElementById('lightboxImage').innerHTML = product.image 
+                ? `<img src="${product.image}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;">`
+                : '🍷';
+
+            const actionsDiv = document.getElementById('lightboxActions');
+            actionsDiv.innerHTML = isAdminMode ? `
+                <button class="btn" onclick="editProduct(${product.id}); closeLightbox();">${translations[currentLang].edit}</button>
+                <button class="btn" onclick="deleteProduct(${product.id}); closeLightbox();">${translations[currentLang].delete}</button>
+            ` : '';
+
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        function toggleAdminMode() {
+            isAdminMode = !isAdminMode;
+            document.getElementById('adminModeBtn').textContent = translations[currentLang][isAdminMode ? 'disableAdmin' : 'enableAdmin'];
+            renderProducts(document.querySelector('.category-btn.active').dataset.category);
+        }
+
+        function openUploadModal() {
+            document.getElementById('uploadModal').classList.add('active');
+            document.getElementById('adminDropdown').classList.remove('active');
+        }
+
+        function closeUploadModal() {
+            document.getElementById('uploadModal').classList.remove('active');
+        }
+
+        function showQueue() {
+            document.getElementById('queueSection').style.display = 'block';
+            document.getElementById('productsGrid').style.display = 'none';
+            renderQueue();
+            document.getElementById('adminDropdown').classList.remove('active');
+        }
+
+        function approveItem(id) {
+            const itemIndex = queue.findIndex(q => q.id === id);
+            if (itemIndex > -1) {
+                queue[itemIndex].status = 'approved';
+                products.push({ ...queue[itemIndex] });
+                saveToStorage();
+                renderQueue();
+                renderProducts();
+            }
+        }
+
+        function rejectItem(id) {
+            const itemIndex = queue.findIndex(q => q.id === id);
+            if (itemIndex > -1) {
+                queue[itemIndex].status = 'rejected';
+                saveToStorage();
+                renderQueue();
+            }
+        }
+
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            const newName = prompt('Enter new name:', product.name);
+            if (newName === null) return;
+
+            const newDesc = prompt('Enter new description:', product.description);
+            if (newDesc === null) return;
+
+            product.name = newName;
+            product.description = newDesc;
+            saveToStorage();
+            renderProducts();
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                products = products.filter(p => p.id !== id);
+                saveToStorage();
+                renderProducts();
+            }
+        }
+    </script>
+</body>
+</html>
