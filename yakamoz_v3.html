@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAKAMOZ - Premium Luxury Glass Catalog</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg-color: #0a0a0a; --gold: #c9a84c; --gold-light: #e5c56b; --text-light: #f5f5f5; --text-dim: #888; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-color); color: var(--text-light); overflow-x: hidden; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; position: fixed; width: 100%; top: 0; z-index: 1000; background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent); }
+        .logo-container { cursor: pointer; transition: transform 0.3s ease; }
+        .logo-container:hover { transform: scale(1.05); }
+        .logo-svg { height: 60px; width: auto; }
+        .lang-switcher { display: flex; gap: 10px; }
+        .lang-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 8px 16px; cursor: pointer; transition: all 0.3s ease; font-size: 14px; }
+        .lang-btn:hover, .lang-btn.active { background: var(--gold); color: var(--bg-color); }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(ellipse at center, rgba(201,168,76,0.1) 0%, transparent 70%); position: relative; }
+        .hero h1 { font-size: 4rem; color: var(--gold); text-transform: uppercase; letter-spacing: 8px; margin-bottom: 20px; animation: glow 2s ease-in-out infinite alternate; }
+        @keyframes glow { from { text-shadow: 0 0 10px rgba(201,168,76,0.5); } to { text-shadow: 0 0 30px rgba(201,168,76,0.8), 0 0 60px rgba(201,168,76,0.4); } }
+        .hero p { font-size: 1.5rem; color: var(--text-dim); letter-spacing: 4px; }
+        .scroll-indicator { position: absolute; bottom: 40px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+        .filter-section { padding: 40px; text-align: center; position: sticky; top: 80px; background: var(--bg-color); z-index: 100; }
+        .filter-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px 30px; margin: 5px; cursor: pointer; transition: all 0.3s ease; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; }
+        .filter-btn:hover, .filter-btn.active { background: var(--gold); color: var(--bg-color); }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; padding: 40px; max-width: 1600px; margin: 0 auto; }
+        .product-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(201,168,76,0.2); overflow: hidden; transition: all 0.4s ease; cursor: pointer; }
+        .product-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 10px 40px rgba(201,168,76,0.2); }
+        .product-image { width: 100%; height: 300px; object-fit: cover; transition: transform 0.4s ease; }
+        .product-card:hover .product-image { transform: scale(1.05); }
+        .product-info { padding: 20px; }
+        .product-name { font-size: 1.4rem; color: var(--gold); margin-bottom: 10px; }
+        .product-price { font-size: 1.2rem; color: var(--text-light); margin-bottom: 10px; }
+        .product-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; }
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; }
+        .lightbox.active { display: flex; }
+        .lightbox-content { max-width: 90%; max-height: 90%; display: flex; gap: 40px; align-items: center; }
+        .lightbox-image { max-width: 600px; max-height: 70vh; object-fit: contain; }
+        .lightbox-details { color: var(--text-light); }
+        .lightbox-name { font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; }
+        .lightbox-price { font-size: 1.8rem; margin-bottom: 20px; }
+        .lightbox-desc { font-size: 1.1rem; line-height: 1.8; color: var(--text-dim); }
+        .lightbox-close { position: absolute; top: 30px; right: 30px; font-size: 3rem; color: var(--gold); cursor: pointer; transition: transform 0.3s ease; }
+        .lightbox-close:hover { transform: rotate(90deg); }
+        .admin-panel { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(10,10,10,0.98); border: 2px solid var(--gold); padding: 40px; z-index: 3000; min-width: 400px; }
+        .admin-panel.active { display: block; }
+        .admin-panel h2 { color: var(--gold); margin-bottom: 20px; text-align: center; }
+        .admin-form { display: flex; flex-direction: column; gap: 15px; }
+        .admin-form input, .admin-form textarea, .admin-form select { background: rgba(255,255,255,0.05); border: 1px solid var(--gold); color: var(--text-light); padding: 12px; font-size: 14px; }
+        .admin-form button { background: var(--gold); color: var(--bg-color); border: none; padding: 12px; cursor: pointer; font-weight: bold; transition: opacity 0.3s ease; }
+        .admin-form button:hover { opacity: 0.8; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2500; }
+        .overlay.active { display: block; }
+        @media (max-width: 768px) { header { padding: 15px 20px; } .hero h1 { font-size: 2rem; } .products-grid { grid-template-columns: 1fr; padding: 20px; } .lightbox-content { flex-direction: column; } .lightbox-image { max-width: 100%; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container" onclick="toggleAdmin()">
+            <svg class="logo-svg" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="stripes" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
+                        <line x1="0" y1="0" x2="0" y2="10" stroke="#1e90ff" stroke-width="3"/>
+                    </pattern>
+                </defs>
+                <circle cx="30" cy="30" r="25" fill="url(#stripes)" stroke="#1e90ff" stroke-width="2"/>
+                <polygon points="100,10 120,25 115,50 85,50 80,25" fill="#c9a84c" opacity="0.8"/>
+                <polygon points="100,15 112,28 108,45 92,45 88,28" fill="#e5c56b" opacity="0.6"/>
+                <text x="140" y="38" font-family="Georgia, serif" font-size="24" fill="#c9a84c" letter-spacing="3">YAKAMOZ</text>
+            </svg>
+        </div>
+        <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="tr">TR</button>
+            <button class="lang-btn" data-lang="ru">RU</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1 data-en="INTERACTIVE SHOWROOM ISTANBUL" data-tr="İNTERAKTİF SHOWROOM İSTANBUL" data-ru="ИНТЕРАКТИВНЫЙ ВЫСТАВОЧНЫЙ ЗАЛ СТАМБУЛ" data-ar="صالة عرض تفاعلية إسطنبول">INTERACTIVE SHOWROOM ISTANBUL</h1>
+        <p data-en="Premium Luxury Glass Collection" data-tr="Premium Lüks Cam Koleksiyonu" data-ru="Премиальная Коллекция Хрусталя" data-ar="مجموعة الزجاج الفاخرة المميزة">Premium Luxury Glass Collection</p>
+        <div class="scroll-indicator"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+    </section>
+
+    <section class="filter-section">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="sofra">Sofra</button>
+        <button class="filter-btn" data-filter="lighting">Lighting</button>
+        <button class="filter-btn" data-filter="bar">Bar</button>
+        <button class="filter-btn" data-filter="dekor">Dekor</button>
+    </section>
+
+    <section class="products-grid" id="productsGrid"></section>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-content">
+            <img class="lightbox-image" id="lightboxImage" src="" alt="">
+            <div class="lightbox-details">
+                <h2 class="lightbox-name" id="lightboxName"></h2>
+                <p class="lightbox-price" id="lightboxPrice"></p>
+                <p class="lightbox-desc" id="lightboxDesc"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeAdmin()"></div>
+
+    <div class="admin-panel" id="adminPanel">
+        <h2>Add New Product</h2>
+        <form class="admin-form" onsubmit="addProduct(event)">
+            <input type="text" placeholder="Product Name (EN)" id="prodNameEn" required>
+            <input type="text" placeholder="Product Name (TR)" id="prodNameTr" required>
+            <input type="text" placeholder="Product Name (RU)" id="prodNameRu" required>
+            <input type="text" placeholder="Product Name (AR)" id="prodNameAr" required>
+            <input type="number" placeholder="Price (TL)" id="prodPrice" required>
+            <select id="prodCategory" required>
+                <option value="sofra">Sofra</option>
+                <option value="lighting">Lighting</option>
+                <option value="bar">Bar</option>
+                <option value="dekor">Dekor</option>
+            </select>
+            <textarea placeholder="Description (EN)" id="prodDescEn" rows="3" required></textarea>
+            <textarea placeholder="Description (TR)" id="prodDescTr" rows="3" required></textarea>
+            <textarea placeholder="Description (RU)" id="prodDescRu" rows="3" required></textarea>
+            <textarea placeholder="Description (AR)" id="prodDescAr" rows="3" required></textarea>
+            <input type="url" placeholder="Image URL" id="prodImage" required>
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, category: 'sofra', name: { en: 'Artisan Glass Plate Set', tr: 'El Yapımı Cam Tabak Seti', ru: 'Набор Художественных Тарелок', ar: 'مجموعة أطباق زجاجية حرفية' }, price: 2499, desc: { en: 'Handcrafted glass plates with intricate patterns, perfect for elegant dining.', tr: 'Zarif desenlerle el yapımı cam tabaklar, şık yemekler için mükemmel.', ru: 'Тарелки из художественного стекла с изящными узорами для элегантной сервировки.', ar: 'أطباق زجاجية مصنوعة يدوياً بأنماط معقدة، مثالية لتناول الطعام الأنيق.' }, image: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=600' },
+            { id: 2, category: 'sofra', name: { en: 'Crystal Serving Bowl', tr: 'Kristal Servis Kasesi', ru: 'Хрустальная Сервировочная Чаша', ar: 'وعاء تقديم كريستالي' }, price: 3299, desc: { en: 'Elegant crystal bowl for serving fruits and desserts with timeless beauty.', tr: 'Meyve ve tatlı servisi için zamansız güzellikte kristal kase.', ru: 'Элегантная хрустальная чаша для подачи фруктов и десертов.', ar: 'وعاء كريستالي أنيق لتقديم الفواكه والحلوات بجمال خالد.' }, image: 'https://images.unsplash.com/photo-1578749556935-417cdd4136fe?w=600' },
+            { id: 3, category: 'sofra', name: { en: 'Venetian Glass Platter', tr: 'Venedik Cam Tepsisi', ru: 'Венецианское Стеклянное Блюдо', ar: 'صينية زجاجية فينيسية' }, price: 4599, desc: { en: 'Luxurious Venetian-style glass platter with gold accents for special occasions.', tr: 'Özel günler için altın detaylı lüks Venedik tarzı cam tepsi.', ru: 'Роскошное венецианское блюдо с золотыми акцентами для особых случаев.', ar: 'صينية زجاجية فاخرة على الطراز الفينيسي مع لمسات ذهبية للمناسبات الخاصة.' }, image: 'https://images.unsplash.com/photo-1605333555142-4a67d5b9c8d4?w=600' },
+            { id: 4, category: 'sofra', name: { en: 'Murano Style Dinner Set', tr: 'Murano Tarzı Yemek Takımı', ru: 'Обеденный Набор в Стиле Мурано', ar: 'طقم عشاء على طراز مورانو' }, price: 8999, desc: { en: 'Complete dinner set inspired by Murano glass masters, featuring unique colors.', tr: 'Murano cam ustalarından ilham alan, benzersiz renklere sahip eksiksiz yemek takımı.', ru: 'Полный обеденный набор, вдохновленный мастерами муранского стекла.', ar: 'طقم عشاء كامل مستوحى من أساتذة زجاج مورانو، بألوان فريدة.' }, image: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=600' },
+            { id: 5, category: 'lighting', name: { en: 'Grand Crystal Chandelier', tr: 'Büyük Kristal Avize', ru: 'Большая Хрустальная Люстра', ar: 'ثريا كريستالية كبيرة' }, price: 45999, desc: { en: 'Magnificent chandelier with cascading crystals, perfect for grand entrances.', tr: 'Büyük girişler için mükemmel, basamaklı kristallerle muhteşem avize.', ru: 'Великолепная люстра с каскадными кристаллами для парадных входов.', ar: 'ثريا رائعة مع كريستالات متتالية، مثالية للمداخل الكبيرة.' }, image: 'https://images.unsplash.com/photo-1543198126-a8ad8e132967?w=600' },
+            { id: 6, category: 'lighting', name: { en: 'Modern Glass Pendant Light', tr: 'Modern Cam Sarkıt Lamba', ru: 'Современный Стеклянный Подвесной Светильник', ar: 'مصباح قلادة زجاجي حديث' }, price: 12999, desc: { en: 'Contemporary pendant light with hand-blown glass shades in amber tones.', tr: 'Amber tonlarında üflenmiş cam abajurlu çağdaş sarkıt lamba.', ru: 'Современный подвесной светильник с янтарными стеклянными плафонами.', ar: 'مصباح قلادة معاصر بظلال زجاجية منفوخة يدوياً بنبرات العنبر.' }, image: 'https://images.unsplash.com/photo-1513506003013-d534791985f7?w=600' },
+            { id: 7, category: 'lighting', name: { en: 'Bohemian Crystal Ceiling Light', tr: 'Bohem Kristal Tavan Lambası', ru: 'Богемный Хрустальный Потолочный Свет', ar: 'ضوء سقف كريستالي بوهيمي' }, price: 28999, desc: { en: 'Exquisite Bohemian crystal ceiling fixture with intricate cut patterns.', tr: 'İnce kesim desenleriyle zarif Bohem kristal tavan armatürü.', ru: 'Изысканный богемский хрустальный потолочный светильник с узорами.', ar: 'تركيب إضاءة سقف كريستالي بوهيمي رائع بأنماط قطع معقدة.' }, image: 'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=600' },
+            { id: 8, category: 'bar', name: { en: 'Crystal Whiskey Decanter Set', tr: 'Kristal Visli Dekantör Seti', ru: 'Набор Хрустальных Графинов для Виски', ar: 'مجموعة دورق ويسكي كريستالي' }, price: 5499, desc: { en: 'Elegant decanter set with matching glasses for the perfect whiskey experience.', tr: 'Mükemmel viski deneyimi için uyumlu bardaklarla zarif dekantör seti.', ru: 'Элегантный набор графинов с бокалами для идеального виски.', ar: 'مجموعة دورق أنيقة مع أكواب مطابقة لتجربة الويسكي المثالية.' }, image: 'https://images.unsplash.com/photo-1574958269340-fa9c749ba25a?w=600' },
+            { id: 9, category: 'bar', name: { en: 'Hand-Cut Wine Glass Collection', tr: 'El Kesimi Şarap Bardağı Koleksiyonu', ru: 'Коллекция Винных Бокалов Ручной Резки', ar: 'مجموعة أكواب نبيذ مقطوعة يدوياً' }, price: 3899, desc: { en: 'Set of 6 hand-cut crystal wine glasses with delicate stem design.', tr: 'Narin sap tasarımlı 6 adet el kesimi kristal şarap bardağı seti.', ru: 'Набор из 6 хрустальных бокалов ручной работы с изящной ножкой.', ar: 'مجموعة من 6 أكواب نبيذ كريستالية مقطوعة يدوياً بتصميم ساق دقيق.' }, image: 'https://images.unsplash.com/photo-1563223784-fc4915ed2e99?w=600' },
+            { id: 10, category: 'bar', name: { en: 'Artisan Cocktail Glass Set', tr: 'El Yapımı Kokteyl Bardağı Seti', ru: 'Набор Коктейльных Бокалов Ручной Работы', ar: 'مجموعة أكواب كوكتيل حرفية' }, price: 2799, desc: { en: 'Unique handcrafted cocktail glasses with artistic swirl patterns.', tr: 'Sanatsal dalga desenleriyle benzersiz el yapımı kokteyl bardakları.', ru: 'Уникальные коктейльные бокалы ручной работы с художественными узорами.', ar: 'أكواب كوكتيل فريدة مصنوعة يدوياً بأنماط دوامة فنية.' }, image: 'https://images.unsplash.com/photo-1572119309048-4813ac84b7e6?w=600' },
+            { id: 11, category: 'dekor', name: { en: 'Sculptural Glass Art Piece', tr: 'Heykelsel Cam Sanat Eseri', ru: 'Скульптурное Стеклянное Произведение Искусства', ar: 'قطعة فنية زجاجية نحتية' }, price: 15999, desc: { en: 'Abstract glass sculpture that serves as a stunning focal point for any room.', tr: 'Herhangi bir oda için çarpıcı bir odak noktası olarak hizmet veren soyut cam heykel.', ru: 'Абстрактная стеклянная скульптура - потрясающий центральный элемент.', ar: 'منحوتة زجاجية مجردة تعمل كنقطة محورية مذهلة لأي غرفة.' }, image: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=600' },
+            { id: 12, category: 'dekor', name: { en: 'Colored Glass Vase Collection', tr: 'Renkli Cam Vazo Koleksiyonu', ru: 'Коллекция Цветных Стеклянных Ваз', ar: 'مجموعة مزهريات زجاجية ملونة' }, price: 7499, desc: { en: 'Set of 3 hand-blown colored glass vases in complementary hues.', tr: 'Tamamlayıcı tonlarda 3 adet üflenmiş renkli cam vazo seti.', ru: 'Набор из 3 ваз из цветного стекла ручной выдувки в дополняющих оттенках.', ar: 'مجموعة من 3 مزهريات زجاجية ملونة منفوخة يدوياً بألوان متكاملة.' }, image: 'https://images.unsplash.com/photo-1581783342308-f792ca11df53?w=600' }
+        ];
+
+        let currentLang = 'en';
+        let currentFilter = 'all';
+
+        const translations = { filter: { all: { en: 'All', tr: 'Tümü', ru: 'Все', ar: 'الكل' }, sofra: { en: 'Sofra', tr: 'Sofra', ru: 'Столовая', ar: 'مائدة' }, lighting: { en: 'Lighting', tr: 'Aydınlatma', ru: 'Освещение', ar: 'إضاءة' }, bar: { en: 'Bar', tr: 'Bar', ru: 'Бар', ar: 'بار' }, dekor: { en: 'Dekor', tr: 'Dekor', ru: 'Декор', ar: 'ديكور' } } };
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.onclick = () => openLightbox(product);
+                card.innerHTML = '<img class="product-image" src="' + product.image + '" alt="' + product.name[currentLang] + '"><div class="product-info"><h3 class="product-name">' + product.name[currentLang] + '</h3><p class="product-price">' + product.price.toLocaleString() + ' TL</p><p class="product-desc">' + product.desc[currentLang] + '</p></div>';
+                grid.appendChild(card);
+            });
+        }
+
+        function openLightbox(product) {
+            document.getElementById('lightboxImage').src = product.image;
+            document.getElementById('lightboxName').textContent = product.name[currentLang];
+            document.getElementById('lightboxPrice').textContent = product.price.toLocaleString() + ' TL';
+            document.getElementById('lightboxDesc').textContent = product.desc[currentLang];
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentLang = btn.dataset.lang;
+                updateLanguage();
+            });
+        });
+
+        function updateLanguage() {
+            document.querySelectorAll('[data-' + currentLang + ']').forEach(el => { if (el.dataset[currentLang]) { el.textContent = el.dataset[currentLang]; } });
+            document.querySelectorAll('.filter-btn').forEach(btn => { const filter = btn.dataset.filter; if (translations.filter[filter]) { btn.textContent = translations.filter[filter][currentLang]; } });
+            renderProducts(currentFilter);
+        }
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderProducts(currentFilter);
+            });
+        });
+
+        function toggleAdmin() { document.getElementById('adminPanel').classList.add('active'); document.getElementById('overlay').classList.add('active'); }
+        function closeAdmin() { document.getElementById('adminPanel').classList.remove('active'); document.getElementById('overlay').classList.remove('active'); }
+
+        function addProduct(e) {
+            e.preventDefault();
+            const newProduct = { id: products.length + 1, category: document.getElementById('prodCategory').value, name: { en: document.getElementById('prodNameEn').value, tr: document.getElementById('prodNameTr').value, ru: document.getElementById('prodNameRu').value, ar: document.getElementById('prodNameAr').value }, price: parseInt(document.getElementById('prodPrice').value), desc: { en: document.getElementById('prodDescEn').value, tr: document.getElementById('prodDescTr').value, ru: document.getElementById('prodDescRu').value, ar: document.getElementById('prodDescAr').value }, image: document.getElementById('prodImage').value };
+            products.push(newProduct);
+            renderProducts(currentFilter);
+            closeAdmin();
+            e.target.reset();
+            alert('Product added successfully!');
+        }
+
+        document.getElementById('lightbox').addEventListener('click', (e) => { if (e.target.id === 'lightbox') { closeLightbox(); } });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeLightbox(); closeAdmin(); } });
+        renderProducts();
+    </script>
+</body>
+</html>
