@@ -18,11 +18,15 @@ This file is for:
 
 | Document | Description |
 |----------|-------------|
+| [HERMES](./HERMES.md) | Super-agent identity, 6 skills, full manual |
+| [HERMES-RULES](./HERMES-RULES.md) | Strict operational rules and constraints |
 | [YAKAMOZ Ecosystem](./docs/yakamoz-ecosystem.md) | Full ecosystem overview, goals, architecture |
 | [Design System](./docs/design-system.md) | Colors, fonts, UI style, brand guidelines |
 | [Tech Stack](./docs/tech-stack.md) | All tools, platforms, APIs in use |
 | [Agent Guidelines](./docs/agent-guidelines.md) | Rules and instructions for AI agents |
 | [AI Tooling](./docs/ai-tooling/README.md) | UI UX Pro Max Skill + Magic MCP setup |
+| [HERMES System Prompt](./docs/hermes-system-prompt.md) | Ready-to-use activation prompt for any LLM |
+| [N8N Workflows](./docs/hermes-n8n-workflows.md) | 31 N8N workflows — full automation (Skill #6) |
 
 ---
 
@@ -51,12 +55,12 @@ https://7lver10.github.io/yakamoz-catalog/
 ## 🛠️ Core Tech Stack (summary)
 
 ```
-Frontend:     HTML5, CSS3, Vanilla JavaScript, TailwindCSS
-Automation:   N8N (workflow orchestration)
-AI/LLM:       Claude (Anthropic), Gemini (Google), Groq API
-Bots:         Telegram Bot API + LLM agents
-Hosting:      GitHub Pages, Replit, Vercel
-Infra:        Docker, Alibaba Cloud, Google Cloud
+Frontend:   HTML5, CSS3, Vanilla JavaScript, TailwindCSS
+Automation: N8N (workflow orchestration)
+AI/LLM:     Claude (Anthropic), Gemini (Google), Groq API
+Bots:       Telegram Bot API + LLM agents
+Hosting:    GitHub Pages, Replit, Vercel
+Infra:      Docker, Alibaba Cloud, Google Cloud
 Version Ctrl: GitHub (main branch = production)
 ```
 
@@ -82,7 +86,10 @@ Version Ctrl: GitHub (main branch = production)
 5. **Language in code:** Variable names and comments in English
 6. **Language in docs:** Match user's language (RU/TR/EN as needed)
 7. **API keys:** Never hardcode, always use environment variables
-8. **When in doubt:** Ask the user — do not assume
+8. **New files:** Always place in `docs/` folder (except HERMES.md, AGENTS.md, HERMES-RULES.md)
+9. **After creating file:** Update AGENTS.md index
+10. **After changing skill:** Update HERMES.md
+11. **When in doubt:** Ask the user — do not assume
 
 ---
 
@@ -91,6 +98,10 @@ Version Ctrl: GitHub (main branch = production)
 - [x] Premium HTML catalog — deployed on GitHub Pages
 - [x] Multilingual support (TR/EN/RU/AR)
 - [x] AI tooling documentation (UI UX Pro Max + Magic MCP)
+- [x] HERMES super-agent — 6 skills defined
+- [x] HERMES-RULES — operational constraints set
+- [x] N8N Workflows documentation — 31 workflows catalogued
+- [x] HERMES System Prompt — ready for any LLM
 - [ ] Full marketplace backend (in progress)
 - [ ] Telegram bot integration (in progress)
 - [ ] N8N automation workflows (in progress)
@@ -113,5 +124,5 @@ Version Ctrl: GitHub (main branch = production)
 
 ---
 
-*This file is maintained by 7LVER10. Last updated: June 2026.*  
+*This file is maintained by 7LVER10. Last updated: June 2026.*
 *If you are an AI agent: respect these guidelines, reference this file, and help build YAKAMOZ.*
