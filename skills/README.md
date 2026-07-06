@@ -8,6 +8,7 @@
 |-------|------|---------|-------------|-------------|
 | lead-triage | `skills/lead-triage/SKILL.md` | Классификация входящих лидов: тип, приоритет, следующий шаг | Новый лид / заявка через сайт, Telegram, WhatsApp, email | Не отвечает клиенту, не создаёт КП, не меняет CRM |
 | invoice-chase | `skills/invoice-chase/SKILL.md` | Контроль неоплаченных счетов: статус, follow-up, эскалация | Еженедельная проверка / по запросу / за 3 дня до дедлайна | Не отправляет сообщения, не меняет бухгалтерию, не обещает |
+| smb-router | `skills/smb-router/SKILL.md` | Маршрутизация входящих SMB-сообщений: тип запроса → downstream-skill | Входящее сообщение из Telegram / WhatsApp / email / сайт | Не отвечает клиенту, не выполняет downstream-skill, не меняет CRM |
 
 ## Usage rule
 
@@ -20,7 +21,6 @@
 
 | Skill | Описание | Связь с текущими |
 |-------|----------|------------------|
-| smb-router | Маршрутизация сообщений SMB из Telegram | Расширяет lead-triage для Telegram |
 | website-brief-intake | Приём брифа на сайт через форму | Связан с lead-triage (тип "заказ") |
 | proposal-draft | Черновик КП по шаблону | Следующий шаг после lead-triage |
 | appointment-followup | Напоминание о встрече | Дополняет invoice-chase (follow-up) |
