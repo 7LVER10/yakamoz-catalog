@@ -10,6 +10,7 @@
 | invoice-chase | `skills/invoice-chase/SKILL.md` | Контроль неоплаченных счетов: статус, follow-up, эскалация | Еженедельная проверка / по запросу / за 3 дня до дедлайна | Не отправляет сообщения, не меняет бухгалтерию, не обещает |
 | smb-router | `skills/smb-router/SKILL.md` | Маршрутизация входящих SMB-сообщений: тип запроса → downstream-skill | Входящее сообщение из Telegram / WhatsApp / email / сайт | Не отвечает клиенту, не выполняет downstream-skill, не меняет CRM |
 | website-brief-intake | `skills/website-brief-intake/SKILL.md` | Приём и структурирование брифа на сайт / лендинг | Клиент запрашивает сайт / лендинг, получен бриф | Не проектирует сайт, не генерирует дизайн, не обещает сроки |
+| yakamoz-director | `skills/yakamoz-director/SKILL.md` | Дирижёр: IVA-проекты, сайты, инвойсы, деплой, контроль среды | Задача из IVA/Command Center, сайт, инвойс, деплой | Не включает тяжёлые MLOps, не заменяет ручной деплой |
 
 ## Usage rule
 
