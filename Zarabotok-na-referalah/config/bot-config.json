@@ -1,0 +1,6 @@
+{
+  "botToken": "",
+  "webhookUrl": "",
+  "allowedChatTypes": ["private", "group"],
+  "maxMessageLength": 4096
+}

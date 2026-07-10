@@ -1,0 +1,263 @@
+{
+  "leads": [
+    {
+      "id": "ld_mrfb45qg_u0it8a",
+      "offerId": "off_mock_01",
+      "source": "telegram",
+      "status": "delivered",
+      "createdAt": "2026-07-10T19:06:35.656Z",
+      "updatedAt": "2026-07-10T19:06:36.224Z",
+      "contact": {
+        "telegramId": null,
+        "username": null,
+        "languageCode": null
+      },
+      "metadata": {
+        "correlationId": "demo_corr_001",
+        "dispatchStatus": "delivered",
+        "networkId": "net_mock",
+        "adapterId": "mock-adapter",
+        "error": null
+      }
+    },
+    {
+      "id": "ld_mrfb45s6_lkyyzl",
+      "offerId": "off_mock_01",
+      "source": "telegram",
+      "status": "delivered",
+      "createdAt": "2026-07-10T19:06:35.717Z",
+      "updatedAt": "2026-07-10T19:06:36.335Z",
+      "contact": {
+        "telegramId": null,
+        "username": null,
+        "languageCode": null
+      },
+      "metadata": {
+        "correlationId": "demo_corr_002",
+        "dispatchStatus": "delivered",
+        "networkId": "net_mock",
+        "adapterId": "mock-adapter",
+        "error": null
+      }
+    },
+    {
+      "id": "ld_mrfb45ud_rqtai2",
+      "offerId": "off_mock_02",
+      "source": "telegram",
+      "status": "rejected",
+      "createdAt": "2026-07-10T19:06:35.797Z",
+      "updatedAt": "2026-07-10T19:06:36.401Z",
+      "contact": {
+        "telegramId": null,
+        "username": null,
+        "languageCode": null
+      },
+      "metadata": {
+        "correlationId": "demo_corr_003",
+        "dispatchStatus": "delivered",
+        "networkId": "net_mock",
+        "adapterId": "mock-adapter",
+        "error": null
+      }
+    },
+    {
+      "id": "ld_mrfb45xi_9x16b0",
+      "offerId": "off_mock_01",
+      "source": "telegram",
+      "status": "failed",
+      "createdAt": "2026-07-10T19:06:35.910Z",
+      "updatedAt": "2026-07-10T19:06:36.498Z",
+      "contact": {
+        "telegramId": null,
+        "username": null,
+        "languageCode": null
+      },
+      "metadata": {
+        "correlationId": "demo_corr_004",
+        "dispatchStatus": "delivered",
+        "networkId": "net_mock",
+        "adapterId": "mock-adapter",
+        "error": null
+      }
+    },
+    {
+      "id": "ld_mrfb45zg_d64qtq",
+      "offerId": "off_mock_02",
+      "source": "telegram",
+      "status": "new",
+      "createdAt": "2026-07-10T19:06:35.980Z",
+      "updatedAt": "2026-07-10T19:06:35.980Z",
+      "contact": {
+        "telegramId": null,
+        "username": null,
+        "languageCode": null
+      },
+      "metadata": {
+        "correlationId": "demo_corr_005",
+        "dispatchStatus": "delivered",
+        "networkId": "net_mock",
+        "adapterId": "mock-adapter",
+        "error": null
+      }
+    },
+    {
+      "id": "ld_mrfb462l_di5818",
+      "offerId": "off_missing",
+      "source": "telegram",
+      "status": "new",
+      "createdAt": "2026-07-10T19:06:36.093Z",
+      "updatedAt": "2026-07-10T19:06:36.093Z",
+      "contact": {
+        "telegramId": null,
+        "username": null,
+        "languageCode": null
+      },
+      "metadata": {
+        "correlationId": "demo_corr_008",
+        "dispatchStatus": "offer_not_found",
+        "networkId": null,
+        "adapterId": null,
+        "error": null
+      }
+    }
+  ],
+  "leadCounts": {
+    "new": 2,
+    "validated": 0,
+    "pending_delivery": 0,
+    "delivered": 2,
+    "rejected": 1,
+    "failed": 1,
+    "total": 6
+  },
+  "dispatchLog": [
+    {
+      "leadId": "ld_mrfb45qg_u0it8a",
+      "offerId": null,
+      "networkId": "net_mock",
+      "adapterId": "mock-adapter",
+      "dispatchStatus": "delivered",
+      "reason": null,
+      "idempotentHit": false
+    },
+    {
+      "leadId": "ld_mrfb45s6_lkyyzl",
+      "offerId": null,
+      "networkId": "net_mock",
+      "adapterId": "mock-adapter",
+      "dispatchStatus": "delivered",
+      "reason": null,
+      "idempotentHit": false
+    },
+    {
+      "leadId": "ld_mrfb45ud_rqtai2",
+      "offerId": null,
+      "networkId": "net_mock",
+      "adapterId": "mock-adapter",
+      "dispatchStatus": "delivered",
+      "reason": null,
+      "idempotentHit": false
+    },
+    {
+      "leadId": "ld_mrfb45xi_9x16b0",
+      "offerId": null,
+      "networkId": "net_mock",
+      "adapterId": "mock-adapter",
+      "dispatchStatus": "delivered",
+      "reason": null,
+      "idempotentHit": false
+    },
+    {
+      "leadId": "ld_mrfb45zg_d64qtq",
+      "offerId": null,
+      "networkId": "net_mock",
+      "adapterId": "mock-adapter",
+      "dispatchStatus": "delivered",
+      "reason": null,
+      "idempotentHit": false
+    }
+  ],
+  "dispatchCounts": {
+    "delivered": 5,
+    "retry_pending": 0,
+    "rejected": 0,
+    "skipped": 0,
+    "offer_not_found": 0,
+    "no_adapter": 0,
+    "adapter_config_invalid": 0,
+    "idempotent_hit": 0,
+    "error": 0,
+    "total": 5
+  },
+  "modules": [
+    {
+      "name": "Lead Store",
+      "status": "up",
+      "stats": {
+        "leads": 6,
+        "dedupKeys": 6
+      }
+    },
+    {
+      "name": "Logger",
+      "status": "up",
+      "stats": {
+        "events": 38,
+        "lastEvent": "2026-07-10T19:06:36.513Z"
+      }
+    },
+    {
+      "name": "CPA Adapter Registry",
+      "status": "up",
+      "stats": {
+        "adapters": 1,
+        "registered": [
+          "net_mock"
+        ]
+      }
+    },
+    {
+      "name": "Offer Registry",
+      "status": "up",
+      "stats": {
+        "offers": 2
+      }
+    },
+    {
+      "name": "Dispatch",
+      "status": "up",
+      "stats": {
+        "dispatchLogEntries": 5
+      }
+    },
+    {
+      "name": "Middleware",
+      "status": "up",
+      "stats": {}
+    }
+  ],
+  "policy": {
+    "total": 6,
+    "approved": 6,
+    "blocked": 0
+  },
+  "alerts": [
+    {
+      "severity": "warning",
+      "event": "middleware_invalid",
+      "message": "Validation failed: Missing required field: contact",
+      "timestamp": "2026-07-10T19:06:36.066Z",
+      "leadId": null,
+      "correlationId": "demo_corr_007"
+    },
+    {
+      "severity": "warning",
+      "event": "lead_duplicate_blocked",
+      "message": "Duplicate blocked:  off_mock_01",
+      "timestamp": "2026-07-10T19:06:36.055Z",
+      "leadId": null,
+      "correlationId": "demo_corr_006"
+    }
+  ],
+  "timestamp": "2026-07-10T19:06:36.527Z"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "lead-gen-system",
+  "version": "0.1.0",
+  "description": "Modular AI-agent system for affiliate/referral/CPA lead gen",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node tests/test-lead-store.js && node tests/test-middleware.js && node tests/test-telegram-adapter.js && node tests/test-cpa-adapter.js && node tests/test-dispatch.js && node tests/test-dashboard.js && node tests/test-persistent-logger.js && node tests/test-persistent-store.js && node tests/test-telegram-runtime.js && node tests/test-pipeline-runtime.js",
+    "test:store": "node tests/test-lead-store.js",
+    "test:middleware": "node tests/test-middleware.js",
+    "test:telegram": "node tests/test-telegram-adapter.js",
+    "test:cpa": "node tests/test-cpa-adapter.js",
+    "test:dispatch": "node tests/test-dispatch.js"
+  },
+  "keywords": ["lead-gen", "cpa", "affiliate", "middleware"],
+  "license": "UNLICENSED"
+}
