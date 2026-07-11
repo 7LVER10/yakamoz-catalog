@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lead Gen System — Dashboard Preview</title>
+<title>Система лидов — Панель управления</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f1117; color: #e0e0e0; font-size: 14px; }
@@ -140,25 +140,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <div class="header">
   <div style="display:flex;align-items:center;">
-    <h1>Lead Gen System</h1>
-    <span class="badge">MVP Preview</span>
+    <h1>Система лидов</h1>
+    <span class="badge">Превью MVP</span>
   </div>
-  <span class="env-tag" id="env-tag">sandbox — loading data...</span>
+  <span class="env-tag" id="env-tag">Песочница — загрузка данных...</span>
 </div>
 
 <div class="summary-bar">
-  <div class="summary-item"><div class="summary-value blue" id="s-total">12</div><div class="summary-label">Total Leads</div></div>
-  <div class="summary-item"><div class="summary-value green" id="s-delivered">5</div><div class="summary-label">Delivered</div></div>
-  <div class="summary-item"><div class="summary-value yellow" id="s-pending">2</div><div class="summary-label">Pending</div></div>
-  <div class="summary-item"><div class="summary-value red" id="s-failed">2</div><div class="summary-label">Failed / Rejected</div></div>
-  <div class="summary-item"><div class="summary-value" id="s-skipped">3</div><div class="summary-label">Skipped / Blocked</div></div>
+  <div class="summary-item"><div class="summary-value blue" id="s-total">12</div><div class="summary-label">Всего лидов</div></div>
+  <div class="summary-item"><div class="summary-value green" id="s-delivered">5</div><div class="summary-label">Доставлено</div></div>
+  <div class="summary-item"><div class="summary-value yellow" id="s-pending">2</div><div class="summary-label">Ожидание</div></div>
+  <div class="summary-item"><div class="summary-value red" id="s-failed">2</div><div class="summary-label">Ошибка / Отклонено</div></div>
+  <div class="summary-item"><div class="summary-value" id="s-skipped">3</div><div class="summary-label">Пропущено / Заблокировано</div></div>
 </div>
 
 <div class="tabs">
-  <div class="tab active" data-tab="leads">Leads</div>
-  <div class="tab" data-tab="dispatch">Dispatch</div>
-  <div class="tab" data-tab="modules">Modules</div>
-  <div class="tab" data-tab="policy">Policy / Alerts</div>
+  <div class="tab active" data-tab="leads">Лиды</div>
+  <div class="tab" data-tab="dispatch">Рассылка</div>
+  <div class="tab" data-tab="modules">Модули</div>
+  <div class="tab" data-tab="policy">Политика / Оповещения</div>
 </div>
 
 <div class="panels">
@@ -166,16 +166,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   <!-- LEADS PANEL -->
   <div class="panel active" id="panel-leads">
     <div class="control-bar">
-      <span class="control-label">Dispatch:</span>
-      <span class="control-status" id="dispatch-status">ACTIVE</span>
-      <button class="btn btn-pause" onclick="toggleDispatch()">Pause Dispatch</button>
+      <span class="control-label">Рассылка:</span>
+      <span class="control-status" id="dispatch-status">АКТИВНА</span>
+      <button class="btn btn-pause" onclick="toggleDispatch()">Приостановить</button>
       <span style="flex:1"></span>
-      <span class="control-label">Last updated: just now</span>
+      <span class="control-label">Обновлено: только что</span>
     </div>
     <div class="card">
       <div class="card-header">
-        <h3>Recent Leads</h3>
-        <span style="font-size:12px;color:#8b949e;">Showing 12 leads from current session</span>
+        <h3>Последние лиды</h3>
+        <span style="font-size:12px;color:#8b949e;">Показано 12 лидов из текущей сессии</span>
       </div>
       <div class="card-body" style="padding:0;" id="lead-list"></div>
     </div>
@@ -185,13 +185,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   <div class="panel" id="panel-dispatch">
     <div class="card">
       <div class="card-header">
-        <h3>Dispatch Log</h3>
-        <span style="font-size:12px;color:#8b949e;">Last 15 dispatch attempts</span>
+        <h3>Журнал рассылки</h3>
+        <span style="font-size:12px;color:#8b949e;">Последние 15 попыток рассылки</span>
       </div>
       <div class="card-body" style="padding:0;" id="dispatch-list"></div>
     </div>
     <div class="card">
-      <div class="card-header"><h3>Adapter Performance</h3></div>
+      <div class="card-header"><h3>Производительность адаптеров</h3></div>
       <div class="card-body" id="adapter-perf"></div>
     </div>
   </div>
@@ -205,13 +205,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   <div class="panel" id="panel-policy">
     <div class="card">
       <div class="card-header">
-        <h3>Policy Summary</h3>
+        <h3>Сводка политик</h3>
       </div>
       <div class="card-body" id="policy-summary"></div>
     </div>
     <div class="card">
       <div class="card-header">
-        <h3>Recent Alerts</h3>
+        <h3>Последние оповещения</h3>
       </div>
       <div class="card-body" style="padding:0;" id="alert-list"></div>
     </div>
@@ -223,7 +223,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <div class="modal-header">
-      <h3 id="modal-title">Lead Detail</h3>
+      <h3 id="modal-title">Детали лида</h3>
       <button class="modal-close" onclick="closeModal()">&times;</button>
     </div>
     <div class="modal-body" id="modal-body"></div>
@@ -309,9 +309,9 @@ function loadFallbackData() {
   ];
   POLICY_CHECKS = { total:3, approved:3, blocked:0 };
   ALERTS = [
-    { severity:'warning', msg:'Using demo data — run node preview/generate-data.js for real pipeline data', time:'now' },
+    { severity:'warning', msg:'Используются демо-данные — запустите node preview/generate-data.js для реальных данных', time:'now' },
   ];
-  document.getElementById('env-tag').textContent = 'sandbox — demo data — run generate-data.js for real data';
+  document.getElementById('env-tag').textContent = 'Песочница — демо-данные — запустите generate-data.js для реальных данных';
 }
 
 async function loadData() {
@@ -321,7 +321,7 @@ async function loadData() {
     const snapshot = await resp.json();
     mapSnapshotToView(snapshot);
     dataSource = 'real';
-    document.getElementById('env-tag').textContent = 'sandbox — real pipeline data — generated ' + (snapshot.timestamp || 'just now');
+    document.getElementById('env-tag').textContent = 'Песочница — реальные данные — сгенерировано ' + (snapshot.timestamp || 'только что');
   } catch (e) {
     loadFallbackData();
   }
@@ -335,7 +335,7 @@ function badgeClass(status) {
 }
 
 function shortStatus(s) {
-  const map = { pending_delivery:'pending', offer_not_found:'not found', adapter_config_invalid:'config err', retry_pending:'retry', idempotent_hit:'idempotent' };
+  const map = { pending_delivery:'ожидание', offer_not_found:'не найден', adapter_config_invalid:'ошибка конф.', retry_pending:'повтор', idempotent_hit:'идемпотент.' };
   return map[s] || s;
 }
 
@@ -352,7 +352,7 @@ function renderSummary() {
 function renderLeads() {
   const el = document.getElementById('lead-list');
   if (LEADS.length === 0) {
-    el.innerHTML = '<div class="empty">No leads in current session</div>';
+    el.innerHTML = '<div class="empty">Нет лидов в текущей сессии</div>';
     return;
   }
   el.innerHTML = LEADS.map(l => {
@@ -366,9 +366,9 @@ function renderLeads() {
       dbadge +
       '<span class="lead-time">' + (l.createdAt || '').replace('T',' ').slice(0,19) + '</span>' +
       '<span class="lead-actions">' +
-        (l.status==='failed' || d==='retry_pending' ? '<button class="btn btn-retry btn-sm" onclick="event.stopPropagation();doAction(\'retry\',\''+l.id+'\')">Retry</button>' : '') +
-        (l.status!=='rejected' && l.status!=='delivered' ? '<button class="btn btn-reject btn-sm" onclick="event.stopPropagation();doAction(\'reject\',\''+l.id+'\')">Reject</button>' : '') +
-        '<button class="btn btn-detail btn-sm" onclick="event.stopPropagation();showLeadDetail(\''+l.id+'\')">Detail</button>' +
+        (l.status==='failed' || d==='retry_pending' ? '<button class="btn btn-retry btn-sm" onclick="event.stopPropagation();doAction(\'retry\',\''+l.id+'\')">Повтор</button>' : '') +
+        (l.status!=='rejected' && l.status!=='delivered' ? '<button class="btn btn-reject btn-sm" onclick="event.stopPropagation();doAction(\'reject\',\''+l.id+'\')">Отклонить</button>' : '') +
+        '<button class="btn btn-detail btn-sm" onclick="event.stopPropagation();showLeadDetail(\''+l.id+'\')">Подробнее</button>' +
       '</span>' +
     '</div>';
   }).join('');
@@ -377,7 +377,7 @@ function renderLeads() {
 function renderDispatch() {
   const el = document.getElementById('dispatch-list');
   if (DISPATCH_LOG.length === 0) {
-    el.innerHTML = '<div class="empty">No dispatch attempts in current session</div>';
+    el.innerHTML = '<div class="empty">Нет попыток рассылки в текущей сессии</div>';
   } else {
     el.innerHTML = DISPATCH_LOG.map(d =>
       '<div class="dispatch-row">' +
@@ -403,15 +403,15 @@ function renderDispatch() {
     else adapters[k].skipped++;
   });
   perf.innerHTML = Object.entries(adapters).length === 0
-    ? '<div class="empty">No adapter data</div>'
+    ? '<div class="empty">Нет данных по адаптерам</div>'
     : Object.entries(adapters).map(([name, s]) =>
       '<div style="margin-bottom:8px;font-size:13px;">' +
         '<strong style="color:#f0f0f0;">' + name + '</strong>' +
-        ' — <span style="color:#3fb950;">delivered: ' + s.delivered + '</span>' +
-        ' | <span style="color:#d29922;">retry: ' + s.retry + '</span>' +
-        ' | <span style="color:#f85149;">error: ' + s.error + '</span>' +
-        ' | <span style="color:#f85149;">rejected: ' + s.rejected + '</span>' +
-        ' | <span style="color:#8b949e;">skipped: ' + s.skipped + '</span>' +
+        ' — <span style="color:#3fb950;">доставлено: ' + s.delivered + '</span>' +
+        ' | <span style="color:#d29922;">повтор: ' + s.retry + '</span>' +
+        ' | <span style="color:#f85149;">ошибка: ' + s.error + '</span>' +
+        ' | <span style="color:#f85149;">отклонено: ' + s.rejected + '</span>' +
+        ' | <span style="color:#8b949e;">пропущено: ' + s.skipped + '</span>' +
       '</div>'
     ).join('');
 }
@@ -433,14 +433,14 @@ function renderModules() {
 function renderPolicy() {
   const el = document.getElementById('policy-summary');
   el.innerHTML =
-    '<div style="font-size:13px;margin-bottom:8px;">Total checks: <strong>' + POLICY_CHECKS.total + '</strong> — ' +
-    '<span style="color:#3fb950;">Approved: ' + POLICY_CHECKS.approved + '</span> — ' +
-    '<span style="color:#f85149;">Blocked: ' + POLICY_CHECKS.blocked + '</span></div>' +
-    '<div style="font-size:12px;color:#8b949e;">No policy packs loaded. All leads pass policy unchecked except manual blocks.</div>';
+    '<div style="font-size:13px;margin-bottom:8px;">Всего проверок: <strong>' + POLICY_CHECKS.total + '</strong> — ' +
+    '<span style="color:#3fb950;">Одобрено: ' + POLICY_CHECKS.approved + '</span> — ' +
+    '<span style="color:#f85149;">Заблокировано: ' + POLICY_CHECKS.blocked + '</span></div>' +
+    '<div style="font-size:12px;color:#8b949e;">Политики не загружены. Все лиды проходят без проверки, кроме ручных блокировок.</div>';
 
   const al = document.getElementById('alert-list');
   al.innerHTML = ALERTS.length === 0
-    ? '<div class="empty">No alerts in current session</div>'
+    ? '<div class="empty">Нет оповещений в текущей сессии</div>'
     : ALERTS.map(a =>
       '<div class="alert-row">' +
         '<span class="badge badge-' + a.severity + '">' + a.severity + '</span>' +
@@ -463,25 +463,25 @@ function renderAll() {
 function showLeadDetail(id) {
   const l = LEADS.find(x => x.id === id);
   if (!l) return;
-  document.getElementById('modal-title').textContent = 'Lead Detail — ' + l.id;
+  document.getElementById('modal-title').textContent = 'Детали лида — ' + l.id;
   const fields = [
-    ['Lead ID', l.id],
-    ['Status', l.status],
-    ['Offer', l.offerId],
-    ['Source', l.source],
-    ['Created', l.createdAt],
-    ['Updated', l.updatedAt],
-    ['Correlation ID', l.metadata.correlationId || '—'],
-    ['Dispatch Status', l.metadata.dispatchStatus || '—'],
-    ['Network', l.metadata.networkId || '—'],
-    ['Adapter', l.metadata.adapterId || '—'],
-    ['Error', l.metadata.error || '—'],
+    ['ID лида', l.id],
+    ['Статус', l.status],
+    ['Оффер', l.offerId],
+    ['Источник', l.source],
+    ['Создан', l.createdAt],
+    ['Обновлён', l.updatedAt],
+    ['Корреляционный ID', l.metadata.correlationId || '—'],
+    ['Статус рассылки', l.metadata.dispatchStatus || '—'],
+    ['Сеть', l.metadata.networkId || '—'],
+    ['Адаптер', l.metadata.adapterId || '—'],
+    ['Ошибка', l.metadata.error || '—'],
   ];
   if (l.contact) {
     if (l.contact.telegramId) fields.push(['Telegram ID', l.contact.telegramId]);
-    if (l.contact.username) fields.push(['Username', '@' + l.contact.username]);
-    if (l.contact.languageCode) fields.push(['Language', l.contact.languageCode]);
-    if (l.contact.phone) fields.push(['Phone', l.contact.phone]);
+    if (l.contact.username) fields.push(['Имя пользователя', '@' + l.contact.username]);
+    if (l.contact.languageCode) fields.push(['Язык', l.contact.languageCode]);
+    if (l.contact.phone) fields.push(['Телефон', l.contact.phone]);
     if (l.contact.email) fields.push(['Email', l.contact.email]);
   }
   document.getElementById('modal-body').innerHTML = fields.map(([k,v]) =>
@@ -495,14 +495,15 @@ function closeModal() {
 }
 
 function doAction(action, leadId) {
-  showToast('Demo action: ' + action + ' on ' + leadId + ' — not connected to live system');
+  const labels = { retry: 'Повтор', reject: 'Отклонить' };
+  showToast('Демо-действие: ' + (labels[action] || action) + ' для ' + leadId + ' — не подключено к рабочей системе');
 }
 
 function toggleDispatch() {
   dispatchActive = !dispatchActive;
-  document.getElementById('dispatch-status').textContent = dispatchActive ? 'ACTIVE' : 'PAUSED';
+  document.getElementById('dispatch-status').textContent = dispatchActive ? 'АКТИВНА' : 'ПРИОСТАНОВЛЕНА';
   document.getElementById('dispatch-status').style.color = dispatchActive ? '#3fb950' : '#d29922';
-  showToast('Dispatch ' + (dispatchActive ? 'resumed' : 'paused') + ' — demo only');
+  showToast('Рассылка ' + (dispatchActive ? 'возобновлена' : 'приостановлена') + ' — только демо');
 }
 
 function showToast(msg) {
